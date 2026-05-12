@@ -20,5 +20,16 @@
     "thumbnails": [],
     "title": "Teclado Gamer",
     "price": 30000
+  },
+  {
+    "id": 3,
+    "title": "Auriculares",
+    "description": "Bluetooth",
+    "code": "AURI123",
+    "price": 70000,
+    "status": true,
+    "stock": 5,
+    "category": "Audio",
+    "thumbnails": []
   }
 ]

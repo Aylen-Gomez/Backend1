@@ -1,10 +1,11 @@
 import { Router } from "express"
 
-import ProductManager from "../dao/filesystem/ProductManager.js"
+//import ProductManager from "../dao/filesystem/ProductManager.js"
+import ProductsMongo from "../dao/mongo/ProductsMongo.js"
 
 const router = Router()
 
-const productManager = new ProductManager()
+const productManager = new ProductsMongo()
 
 router.get("/", async (req, res) => {
 
