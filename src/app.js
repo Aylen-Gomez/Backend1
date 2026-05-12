@@ -1,3 +1,6 @@
+import dotenv from "dotenv"
+dotenv.config()
+
 import express from "express"
 import { engine } from "express-handlebars"
 import { createServer } from "http"
@@ -9,8 +12,10 @@ import productsRouter from "./routes/products.router.js"
 import cartsRouter from "./routes/carts.router.js"
 import viewsRouter from "./routes/views.router.js"
 import ProductManager from "./dao/filesystem/ProductManager.js"
+import connectDB from "./config/db.js"
 
 const app = express()
+connectDB()
 
 const httpServer = createServer(app)
 
