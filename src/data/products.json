@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "Mouse Gamer",
+    "description": "RGB",
+    "code": "M123",
+    "price": 25000,
+    "status": true,
+    "stock": 10,
+    "category": "Perifericos",
+    "thumbnails": []
+  },
+  {
+    "id": 2,
+    "description": "Sin descripcion",
+    "code": "CODE1778614848586",
+    "status": true,
+    "stock": 10,
+    "category": "General",
+    "thumbnails": [],
+    "title": "Teclado Gamer",
+    "price": 30000
+  }
+]

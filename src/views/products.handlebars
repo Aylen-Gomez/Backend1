@@ -1,0 +1,29 @@
+<h1>Productos</h1>
+
+<div class="products-container">
+
+    {{#each products}}
+
+        <div class="product-card">
+
+            <h2>
+
+            <a href="/products/{{this.id}}">
+                {{this.title}}
+            </a>
+
+            </h2>
+
+            <p>{{this.description}}</p>
+
+            <p>Precio: ${{this.price}}</p>
+
+            <p>Categoría: {{this.category}}</p>
+
+            <p>Stock: {{this.stock}}</p>
+
+        </div>
+
+    {{/each}}
+
+</div>
