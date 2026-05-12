@@ -1,10 +1,10 @@
 import { Router } from "express"
 
-import CartManager from "../dao/filesystem/CartManager.js"
+import CartsMongo from "../dao/mongo/CartsMongo.js"
 
 const router = Router()
 
-const cartManager = new CartManager()
+const cartManager = new CartsMongo()
 
 router.post("/", async (req, res) => {
 
@@ -53,89 +53,89 @@ router.post("/:cid/products/:pid", async (req, res) => {
 
 })
 
-router.delete("/:cid/products/:pid", async (req, res) => {
+// router.delete("/:cid/products/:pid", async (req, res) => {
 
-    const { cid, pid } = req.params
+//     const { cid, pid } = req.params
 
-    const updatedCart = await cartManager.removeProductFromCart(
-        cid,
-        pid
-    )
+//     const updatedCart = await cartManager.removeProductFromCart(
+//         cid,
+//         pid
+//     )
 
-    if (!updatedCart) {
+//     if (!updatedCart) {
 
-        return res.status(404).json({
-            error: "Carrito no encontrado"
-        })
+//         return res.status(404).json({
+//             error: "Carrito no encontrado"
+//         })
 
-    }
+//     }
 
-    res.json(updatedCart)
+//     res.json(updatedCart)
 
-})
+// })
 
-router.put("/:cid", async (req, res) => {
+// router.put("/:cid", async (req, res) => {
 
-    const { cid } = req.params
+//     const { cid } = req.params
 
-    const updatedCart = await cartManager.updateCart(
-        cid,
-        req.body.products
-    )
+//     const updatedCart = await cartManager.updateCart(
+//         cid,
+//         req.body.products
+//     )
 
-    if (!updatedCart) {
+//     if (!updatedCart) {
 
-        return res.status(404).json({
-            error: "Carrito no encontrado"
-        })
+//         return res.status(404).json({
+//             error: "Carrito no encontrado"
+//         })
 
-    }
+//     }
 
-    res.json(updatedCart)
+//     res.json(updatedCart)
 
-})
+// })
 
-router.put("/:cid/products/:pid", async (req, res) => {
+// router.put("/:cid/products/:pid", async (req, res) => {
 
-    const { cid, pid } = req.params
+//     const { cid, pid } = req.params
 
-    const { quantity } = req.body
+//     const { quantity } = req.body
 
-    const updatedCart =
-        await cartManager.updateProductQuantity(
-            cid,
-            pid,
-            quantity
-        )
+//     const updatedCart =
+//         await cartManager.updateProductQuantity(
+//             cid,
+//             pid,
+//             quantity
+//         )
 
-    if (!updatedCart) {
+//     if (!updatedCart) {
 
-        return res.status(404).json({
-            error: "Carrito o producto no encontrado"
-        })
+//         return res.status(404).json({
+//             error: "Carrito o producto no encontrado"
+//         })
 
-    }
+//     }
 
-    res.json(updatedCart)
+//     res.json(updatedCart)
 
-})
+// })
 
-router.delete("/:cid", async (req, res) => {
+// router.delete("/:cid", async (req, res) => {
 
-    const { cid } = req.params
+//     const { cid } = req.params
 
-    const clearedCart = await cartManager.clearCart(cid)
+//     const clearedCart = await cartManager.clearCart(cid)
 
-    if (!clearedCart) {
+//     if (!clearedCart) {
 
-        return res.status(404).json({
-            error: "Carrito no encontrado"
-        })
+//         return res.status(404).json({
+//             error: "Carrito no encontrado"
+//         })
 
-    }
+//     }
 
-    res.json(clearedCart)
+//     res.json(clearedCart)
 
-})
+// })
 
 export default router
