@@ -2,17 +2,90 @@ import Product from "../../models/Product.js"
 
 class ProductsMongo {
 
-    async getProducts() {
+async getProducts({
+    limit = 10,
+    page = 1,
+    query,
+    sort
+} = {}) {
 
-        return await Product.find()
+    const filter = {}
+
+    if (query) {
+
+        filter.category = query
 
     }
 
-    async getProductById(id) {
+    const options = {
 
-        return await Product.findById(id)
+        page,
+        limit,
+        lean: true
 
     }
+
+    if (sort === "asc") {
+
+        options.sort = {
+            price: 1
+        }
+
+    }
+
+    if (sort === "desc") {
+
+        options.sort = {
+            price: -1
+        }
+
+    }
+
+    const result =
+        await Product.paginate(
+            filter,
+            options
+        )
+
+    return {
+
+        status: "success",
+
+        payload: result.docs,
+
+        totalPages: result.totalPages,
+
+        prevPage: result.prevPage,
+
+        nextPage: result.nextPage,
+
+        page: result.page,
+
+        hasPrevPage: result.hasPrevPage,
+
+        hasNextPage: result.hasNextPage,
+
+        prevLink:
+            result.hasPrevPage
+                ? `/api/products?page=${result.prevPage}`
+                : null,
+
+        nextLink:
+            result.hasNextPage
+                ? `/api/products?page=${result.nextPage}`
+                : null
+
+    }
+
+}
+
+async getProductById(id) {
+
+    return await Product
+        .findById(id)
+        .lean()
+
+}
 
     async addProduct(productData) {
 
