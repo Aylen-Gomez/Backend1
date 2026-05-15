@@ -2,9 +2,22 @@
 
     <div class="container-fluid">
 
-        <a class="navbar-brand brand-logo" href="/products">
-            STANLEY STORE
+        <!-- LOGO -->
+
+        <a
+            class="navbar-brand d-flex align-items-center"
+            href="/products"
+        >
+
+            <img
+                src="/images/logo-boreal.png"
+                alt="Boreal"
+                class="navbar-logo"
+            >
+
         </a>
+
+        <!-- BOTON MOBILE -->
 
         <button
             class="navbar-toggler"
@@ -17,17 +30,34 @@
 
         </button>
 
+        <!-- CONTENIDO -->
+
         <div
             class="collapse navbar-collapse"
             id="navbarContent"
         >
 
-            <ul class="navbar-nav mx-auto gap-3 align-items-center">
+            <!-- MENU CENTRO -->
+
+            <ul
+                class="
+                    navbar-nav
+                    mx-auto
+                    gap-4
+                    align-items-center
+                "
+            >
+
+                <!-- CATEGORIAS -->
 
                 <li class="nav-item dropdown">
 
                     <a
-                        class="nav-link dropdown-toggle nav-text"
+                        class="
+                            nav-link
+                            dropdown-toggle
+                            nav-text
+                        "
                         href="#"
                         role="button"
                         data-bs-toggle="dropdown"
@@ -67,15 +97,22 @@
 
                 </li>
 
+                <!-- SOBRE NOSOTROS -->
+
                 <li class="nav-item">
 
-                    <a class="nav-link nav-text" href="#">
+                    <a
+                        class="nav-link nav-text"
+                        href="#"
+                    >
 
                         Sobre nosotros
 
                     </a>
 
                 </li>
+
+                <!-- NOVEDADES -->
 
                 <li class="nav-item">
 
@@ -92,7 +129,17 @@
 
             </ul>
 
-            <div class="d-flex align-items-center gap-4">
+            <!-- ICONOS DERECHA -->
+
+            <div
+                class="
+                    d-flex
+                    align-items-center
+                    gap-4
+                "
+            >
+
+                <!-- CARRITO -->
 
                 <a
                     href="/carts/TU_CART_ID"
@@ -101,19 +148,26 @@
 
                     <div class="cart-container">
 
-                        🛒
+                        <i class="bi bi-cart3"></i>
 
                         <span class="cart-badge">
+
                             0
+
                         </span>
 
                     </div>
 
                 </a>
 
-                <a href="#" class="icon-link">
+                <!-- USUARIO -->
 
-                    👤
+                <a
+                    href="#"
+                    class="icon-link"
+                >
+
+                    <i class="bi bi-person-circle"></i>
 
                 </a>
 
