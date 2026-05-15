@@ -455,3 +455,45 @@ button:hover {
         var(--color-primary);
 
 }
+.promo-carousel {
+
+    background-color:
+        var(--color-logo);
+
+}
+
+.promo-slide {
+
+    color:
+        var(--color-white);
+
+    text-align: center;
+
+    padding: 10px;
+
+    font-size: 0.9rem;
+
+    font-weight: 500;
+
+    letter-spacing: 0.5px;
+
+}
+
+.hero-banner {
+
+    width: 100%;
+
+}
+
+.hero-banner img {
+
+    width: 100%;
+
+    height: auto;
+
+    display: block;
+
+    box-shadow:
+        var(--shadow-soft);
+
+}
