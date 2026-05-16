@@ -1,67 +1,249 @@
+
 {{> navbar}}
-{{!-- <h1>Productos</h1> --}}
 
-<div class="products-container">
+<!-- ========================= -->
+<!-- TERMOS -->
+<!-- ========================= -->
 
-    {{#each products}}
+<section id="termos">
 
-        <div class="product-card">
+    <section class="featured-banner">
 
-    <img
-        src="{{this.thumbnails.[0]}}"
-        alt="{{this.title}}"
-        class="product-image"
-    />
+        <h2>
+            TERMOS
+        </h2>
 
-    <h2 class="product-title">
+    </section>
 
-        <a href="/products/{{this._id}}">
-            {{this.title}}
-        </a>
+    <div class="products-container">
 
-    </h2>
+        {{#each products}}
 
-    <p class="product-price">
-        ${{this.price}}
-    </p>
+            {{#if (eq this.category "Termos")}}
 
-    <p class="product-installments">
-        3 cuotas sin interés
-    </p>
+                <div class="product-card">
 
-    <a
-        href="/products/{{this._id}}"
-        class="view-product-btn"
-    >
-        Ver producto
-    </a>
+                    <img
+                        src="{{this.thumbnails.[0]}}"
+                        alt="{{this.title}}"
+                        class="product-image"
+                    />
 
-</div>
+                    <h2 class="product-title">
 
-    {{/each}}
+                        <a href="/products/{{this._id}}">
+                            {{this.title}}
+                        </a>
 
-</div>
+                    </h2>
 
-<div class="pagination">
+                    <p class="product-price">
+                        ${{this.price}}
+                    </p>
 
-    {{#if hasPrevPage}}
+                    <p class="product-installments">
+                        3 cuotas sin interés
+                    </p>
 
-        <a href="{{prevLink}}">
-            ⬅ Página anterior
-        </a>
+                    <a
+                        href="/products/{{this._id}}"
+                        class="view-product-btn"
+                    >
+                        Ver producto
+                    </a>
 
-    {{/if}}
+                </div>
 
-    <p>
-        Página {{page}} de {{totalPages}}
-    </p>
+            {{/if}}
 
-    {{#if hasNextPage}}
+        {{/each}}
 
-        <a href="{{nextLink}}">
-            Página siguiente ➡
-        </a>
+    </div>
 
-    {{/if}}
+</section>
 
-</div>
+<!-- ========================= -->
+<!-- VASOS -->
+<!-- ========================= -->
+
+<section id="vasos">
+
+    <section class="featured-banner">
+
+        <h2>
+            VASOS
+        </h2>
+
+    </section>
+
+    <div class="products-container">
+
+        {{#each products}}
+
+            {{#if (eq this.category "Vasos")}}
+
+                <div class="product-card">
+
+                    <img
+                        src="{{this.thumbnails.[0]}}"
+                        alt="{{this.title}}"
+                        class="product-image"
+                    />
+
+                    <h2 class="product-title">
+
+                        <a href="/products/{{this._id}}">
+                            {{this.title}}
+                        </a>
+
+                    </h2>
+
+                    <p class="product-price">
+                        ${{this.price}}
+                    </p>
+
+                    <p class="product-installments">
+                        3 cuotas sin interés
+                    </p>
+
+                    <a
+                        href="/products/{{this._id}}"
+                        class="view-product-btn"
+                    >
+                        Ver producto
+                    </a>
+
+                </div>
+
+            {{/if}}
+
+        {{/each}}
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- MATES -->
+<!-- ========================= -->
+
+<section id="mates">
+
+    <section class="featured-banner">
+
+        <h2>
+            MATES
+        </h2>
+
+    </section>
+
+    <div class="products-container">
+
+        {{#each products}}
+
+            {{#if (eq this.category "Mates")}}
+
+                <div class="product-card">
+
+                    <img
+                        src="{{this.thumbnails.[0]}}"
+                        alt="{{this.title}}"
+                        class="product-image"
+                    />
+
+                    <h2 class="product-title">
+
+                        <a href="/products/{{this._id}}">
+                            {{this.title}}
+                        </a>
+
+                    </h2>
+
+                    <p class="product-price">
+                        ${{this.price}}
+                    </p>
+
+                    <p class="product-installments">
+                        3 cuotas sin interés
+                    </p>
+
+                    <a
+                        href="/products/{{this._id}}"
+                        class="view-product-btn"
+                    >
+                        Ver producto
+                    </a>
+
+                </div>
+
+            {{/if}}
+
+        {{/each}}
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- BOTELLAS -->
+<!-- ========================= -->
+
+<section id="botellas">
+
+    <section class="featured-banner">
+
+        <h2>
+            BOTELLAS
+        </h2>
+
+    </section>
+
+    <div class="products-container">
+
+        {{#each products}}
+
+            {{#if (eq this.category "Botellas")}}
+
+                <div class="product-card">
+
+                    <img
+                        src="{{this.thumbnails.[0]}}"
+                        alt="{{this.title}}"
+                        class="product-image"
+                    />
+
+                    <h2 class="product-title">
+
+                        <a href="/products/{{this._id}}">
+                            {{this.title}}
+                        </a>
+
+                    </h2>
+
+                    <p class="product-price">
+                        ${{this.price}}
+                    </p>
+
+                    <p class="product-installments">
+                        3 cuotas sin interés
+                    </p>
+
+                    <a
+                        href="/products/{{this._id}}"
+                        class="view-product-btn"
+                    >
+                        Ver producto
+                    </a>
+
+                </div>
+
+            {{/if}}
+
+        {{/each}}
+
+    </div>
+
+</section>
+
+{{> footer}}
+

@@ -32,7 +32,24 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static(path.join(__dirname, "public")))
 
-app.engine("handlebars", engine())
+const hbs = engine({
+
+    partialsDir:
+        path.join(__dirname, "views/partials"),
+
+    helpers: {
+
+        eq: function (a, b) {
+
+            return a === b
+
+        }
+
+    }
+
+})
+
+app.engine("handlebars", hbs)
 app.set("view engine", "handlebars")
 app.set("views", path.join(__dirname, "views"))
 

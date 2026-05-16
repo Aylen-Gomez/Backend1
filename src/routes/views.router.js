@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 router.get("/products", async (req, res) => {
 
     const {
-        limit = 10,
+        limit = 999,
         page = 1,
         query,
         sort
