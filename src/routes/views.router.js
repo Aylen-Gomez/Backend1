@@ -8,9 +8,20 @@ const router = Router()
 const productManager = new ProductsMongo()
 const cartManager = new CartsMongo()
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
 
-    res.redirect("/products")
+    const result =
+        await productManager.getProducts({
+
+            limit: 4
+
+        })
+
+    res.render("home", {
+
+        products: result.payload
+
+    })
 
 })
 

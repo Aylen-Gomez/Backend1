@@ -1,0 +1,52 @@
+{{> navbar}}
+<!-- HERO BANNER -->
+
+<section class="hero-banner">
+
+    <img
+        src="/images/hero-boreal.png"
+        alt="Boreal Banner"
+    >
+
+</section>
+
+<div class="products-container">
+
+    {{#each products}}
+
+        <div class="product-card">
+
+    <img
+        src="{{this.thumbnails.[0]}}"
+        alt="{{this.title}}"
+        class="product-image"
+    />
+
+    <h2 class="product-title">
+
+        <a href="/products/{{this._id}}">
+            {{this.title}}
+        </a>
+
+    </h2>
+
+    <p class="product-price">
+        ${{this.price}}
+    </p>
+
+    <p class="product-installments">
+        3 cuotas sin interés
+    </p>
+
+    <a
+        href="/products/{{this._id}}"
+        class="view-product-btn"
+    >
+        Ver producto
+    </a>
+
+</div>
+
+    {{/each}}
+
+</div>
