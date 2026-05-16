@@ -232,7 +232,7 @@
 
 </section>
 
-<h1>Productos</h1>
+{{!-- <h1>Productos</h1> --}}
 
 <div class="products-container">
 
@@ -240,23 +240,36 @@
 
         <div class="product-card">
 
-            <h2>
+    <img
+        src="{{this.thumbnails.[0]}}"
+        alt="{{this.title}}"
+        class="product-image"
+    />
 
-                <a href="/products/{{this._id}}">
-                    {{this.title}}
-                </a>
+    <h2 class="product-title">
 
-            </h2>
+        <a href="/products/{{this._id}}">
+            {{this.title}}
+        </a>
 
-            <p>{{this.description}}</p>
+    </h2>
 
-            <p>Precio: ${{this.price}}</p>
+    <p class="product-price">
+        ${{this.price}}
+    </p>
 
-            <p>Categoría: {{this.category}}</p>
+    <p class="product-installments">
+        3 cuotas sin interés
+    </p>
 
-            <p>Stock: {{this.stock}}</p>
+    <a
+        href="/products/{{this._id}}"
+        class="view-product-btn"
+    >
+        Ver producto
+    </a>
 
-        </div>
+</div>
 
     {{/each}}
 
