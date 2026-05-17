@@ -5,28 +5,48 @@ class CartsMongo {
     async createCart() {
 
         return await Cart.create({
+
             products: []
+
         })
 
     }
 
-async getCartById(id) {
+    async getCartById(id) {
 
-    return await Cart.findById(id)
-        .populate("products.product")
-        .lean()
+        return await Cart.findById(id)
 
-}
+            .populate("products.product")
+
+            .lean()
+
+    }
 
     async addProductToCart(cartId, productId) {
+
+        console.log("CART ID:", cartId)
+
+        console.log("PRODUCT ID:", productId)
 
         const cart =
             await Cart.findById(cartId)
 
+        console.log("FOUND CART:", cart)
+
+        if (!cart) {
+
+            return null
+
+        }
+
         const existingProduct =
             cart.products.find(
+
                 item =>
+
+                    item.product &&
                     item.product.toString() === productId
+
             )
 
         if (existingProduct) {
@@ -36,8 +56,11 @@ async getCartById(id) {
         } else {
 
             cart.products.push({
+
                 product: productId,
+
                 quantity: 1
+
             })
 
         }
@@ -47,94 +70,111 @@ async getCartById(id) {
         return cart
 
     }
+
     async removeProductFromCart(cartId, productId) {
 
-    const cart =
-        await Cart.findById(cartId)
+        const cart =
+            await Cart.findById(cartId)
 
-    if (!cart) {
+        if (!cart) {
 
-        return null
+            return null
 
-    }
+        }
 
-    cart.products =
-        cart.products.filter(
-            item =>
-                item.product.toString() !== productId
-        )
+        cart.products =
+            cart.products.filter(
 
-    await cart.save()
+                item =>
 
-    return cart
+                    item.product &&
+                    item.product.toString() !== productId
 
-}
-async updateCart(cartId, products) {
+            )
 
-    const updatedCart =
-        await Cart.findByIdAndUpdate(
-            cartId,
-            { products },
-            { new: true }
-        )
+        await cart.save()
 
-    return updatedCart
-
-}
-
-async updateProductQuantity(
-    cartId,
-    productId,
-    quantity
-) {
-
-    const cart =
-        await Cart.findById(cartId)
-
-    if (!cart) {
-
-        return null
+        return cart
 
     }
 
-    const product =
-        cart.products.find(
-            item =>
-                item.product.toString() === productId
-        )
+    async updateCart(cartId, products) {
 
-    if (!product) {
+        const updatedCart =
+            await Cart.findByIdAndUpdate(
 
-        return null
+                cartId,
 
-    }
+                { products },
 
-    product.quantity = quantity
+                { new: true }
 
-    await cart.save()
+            )
 
-    return cart
-
-}
-async clearCart(cartId) {
-
-    const cart =
-        await Cart.findById(cartId)
-
-    if (!cart) {
-
-        return null
+        return updatedCart
 
     }
 
-    cart.products = []
+    async updateProductQuantity(
 
-    await cart.save()
+        cartId,
+        productId,
+        quantity
 
-    return cart
+    ) {
+
+        const cart =
+            await Cart.findById(cartId)
+
+        if (!cart) {
+
+            return null
+
+        }
+
+        const product =
+            cart.products.find(
+
+                item =>
+
+                    item.product &&
+                    item.product.toString() === productId
+
+            )
+
+        if (!product) {
+
+            return null
+
+        }
+
+        product.quantity = quantity
+
+        await cart.save()
+
+        return cart
+
+    }
+
+    async clearCart(cartId) {
+
+        const cart =
+            await Cart.findById(cartId)
+
+        if (!cart) {
+
+            return null
+
+        }
+
+        cart.products = []
+
+        await cart.save()
+
+        return cart
+
+    }
 
 }
-}
-
 
 export default CartsMongo

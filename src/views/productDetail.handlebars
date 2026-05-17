@@ -1,60 +1,205 @@
-<h1>Detalle del producto</h1>
 
-<div class="product-detail">
+{{> navbar}}
 
-    <h2>{{product.title}}</h2>
+<section class="product-detail-page">
 
-    <p>{{product.description}}</p>
+    <!-- IMAGEN -->
 
-    <p>Precio: ${{product.price}}</p>
+    <div class="product-detail-image">
 
-    <p>Categoría: {{product.category}}</p>
+        <img
+            src="{{product.thumbnails.[0]}}"
+            alt="{{product.title}}"
+        >
 
-    <p>Stock: {{product.stock}}</p>
+    </div>
 
-    <p>Código: {{product.code}}</p>
+    <!-- INFO -->
 
-   <button onclick="addToCart('{{product._id}}')">
+    <div class="product-detail-info">
 
-    Agregar al carrito
+        <h1>
+            {{product.title}}
+        </h1>
 
-</button>
+        <p class="detail-description">
+
+            {{product.description}}
+
+        </p>
+
+        <p class="detail-price">
+
+            ${{product.price}}
+
+        </p>
+
+        <p class="detail-installments">
+
+            3 cuotas sin interés
+
+        </p>
+
+        <!-- COLORES -->
+
+        <div class="detail-colors">
+
+            <p>
+                Colores:
+            </p>
+
+            <div class="color-options">
+
+                <span class="color black"></span>
+
+                <span class="color gray"></span>
+
+                <span class="color blue"></span>
+
+            </div>
+
+        </div>
+
+        <!-- CANTIDAD -->
+
+        <div class="quantity-container">
+
+            <p>
+                Cantidad
+            </p>
+
+            <div class="quantity-selector">
+
+                <button onclick="decreaseQty()">
+                    -
+                </button>
+
+                <span id="quantity">
+                    1
+                </span>
+
+                <button onclick="increaseQty()">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- BOTON -->
+
+        <button
+            class="add-cart-detail-btn"
+            onclick="addToCart('{{product._id}}')"
+        >
+
+            Agregar al carrito
+
+        </button>
+            <a
+    href="/products"
+    class="back-products"
+>
+
+    ← Volver a productos
+
+</a>
+
+    </div>
+
+</section>
 
 <script>
 
-    async function addToCart(productId) {
+    let quantity = 1
 
-        const cartId =
-            "6a04e0e749be7e31421d65c0"
+    function increaseQty() {
 
-        const response = await fetch(
+        quantity++
 
-            `/api/carts/${cartId}/products/${productId}`,
+        document.getElementById(
+            "quantity"
+        ).innerText = quantity
 
-            {
-                method: "POST"
-            }
+    }
 
-        )
+    function decreaseQty() {
 
-        if (response.ok) {
+        if (quantity > 1) {
 
-            alert("Producto agregado al carrito")
+            quantity--
 
-        } else {
-
-            alert("Error al agregar producto")
+            document.getElementById(
+                "quantity"
+            ).innerText = quantity
 
         }
 
     }
 
+    let cartCount = 0
+
+    async function addToCart(productId) {
+
+        const cartId =
+            "6a091f5ec5adea56c2610400"
+
+        for (let i = 0; i < quantity; i++) {
+
+            await fetch(
+
+                `/api/carts/${cartId}/products/${productId}`,
+
+                {
+                    method: "POST"
+                }
+
+            )
+
+        }
+
+        cartCount += quantity
+
+        document.getElementById(
+            "cart-badge"
+        ).innerText = cartCount
+
+        showToast()
+
+    }
+
+    function showToast() {
+
+        const toast =
+            document.createElement("div")
+
+        toast.classList.add("custom-toast")
+
+        toast.innerText =
+            "Producto agregado al carrito 🛒"
+
+        document.body.appendChild(toast)
+
+        setTimeout(() => {
+
+            toast.classList.add("show")
+
+        }, 100)
+
+        setTimeout(() => {
+
+            toast.classList.remove("show")
+
+            setTimeout(() => {
+
+                toast.remove()
+
+            }, 300)
+
+        }, 2500)
+
+    }
+
 </script>
-
-</div>
-
-<a href="/products">
-    Volver a productos
-</a>
 
 {{> footer}}
