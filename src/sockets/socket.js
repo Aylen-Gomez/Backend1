@@ -1,0 +1,109 @@
+import ProductsMongo
+from "../dao/mongo/ProductsMongo.js"
+
+const productManager =
+    new ProductsMongo()
+
+export const configureSocket = (io) => {
+
+    io.on("connection", async socket => {
+
+        console.log("Cliente conectado")
+
+        const result =
+            await productManager.getProducts()
+
+        socket.emit(
+            "updateProducts",
+            result.payload
+        )
+
+        socket.on(
+            "newProduct",
+            async product => {
+
+                const completeProduct = {
+
+                    description:
+                        "Sin descripcion",
+
+                    code:
+                        `CODE${Date.now()}`,
+
+                    status: true,
+
+                    stock: 10,
+
+                    category: "General",
+
+                    thumbnails: [],
+
+                    ...product
+
+                }
+
+                await productManager.addProduct(
+                    completeProduct
+                )
+
+                const updatedProducts =
+                    await productManager.getProducts()
+
+                io.emit(
+                    "updateProducts",
+                    updatedProducts.payload
+                )
+
+            }
+
+        )
+
+    })
+
+}
+
+export const configureSocket = (io) => {
+
+    io.on("connection", socket => {
+
+        console.log("Cliente conectado")
+
+        socket.on("message", message => {
+
+            io.emit("message", {
+                user: "Usuario",
+                text: message
+            })
+
+            let botResponse =
+                "No entendí tu consulta"
+
+            if (
+                message.includes("hola")
+            ) {
+
+                botResponse =
+                    "¡Hola! 👋 Bienvenido a Boreal"
+
+            }
+
+            if (
+                message.includes("termo")
+            ) {
+
+                botResponse =
+                    "Tenemos termos de 1L y 1.2L ❄"
+
+            }
+
+            io.emit("message", {
+                user: "Bot Boreal",
+                text: botResponse
+            })
+
+        })
+
+    })
+
+}
+

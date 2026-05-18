@@ -15,6 +15,7 @@ import viewsRouter from "./routes/views.router.js"
 import ProductsMongo from "./dao/mongo/ProductsMongo.js"
 import connectDB from "./config/db.js"
 import errorHandler from "./middlewares/errorHandler.js"
+import { configureSocket } from "./sockets/socket.js"
 
 const app = express()
 connectDB()
@@ -57,42 +58,6 @@ app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
 app.use(errorHandler)
-
-io.on("connection", async socket => {
-
-    console.log("Cliente conectado")
-
-    const result = await productManager.getProducts()
-
-    socket.emit("updateProducts", result.payload)
-
-    socket.on("newProduct", async product => {
-
-        const completeProduct = {
-            description: "Sin descripcion",
-            code: `CODE${Date.now()}`,
-            status: true,
-            stock: 10,
-            category: "General",
-            thumbnails: [],
-            ...product
-        }
-
-        await productManager.addProduct(
-            completeProduct
-        )
-
-        const updatedProducts =
-            await productManager.getProducts()
-
-        io.emit(
-            "updateProducts",
-            updatedProducts.payload
-        )
-
-    })
-
-})
 
 const PORT = 8080
 
