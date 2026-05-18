@@ -1,7 +1,6 @@
-
 {{> navbar}}
 
-<section class="product-detail-page">
+<section class="product-detail-container">
 
     <!-- IMAGEN -->
 
@@ -18,23 +17,23 @@
 
     <div class="product-detail-info">
 
-        <h1>
+        <h1 class="product-detail-title">
             {{product.title}}
         </h1>
 
-        <p class="detail-description">
+        <p class="product-detail-description">
 
             {{product.description}}
 
         </p>
 
-        <p class="detail-price">
+        <p class="product-detail-price">
 
             ${{product.price}}
 
         </p>
 
-        <p class="detail-installments">
+        <p class="product-detail-installments">
 
             3 cuotas sin interés
 
@@ -42,47 +41,43 @@
 
         <!-- COLORES -->
 
-        <div class="detail-colors">
+        <div class="product-colors">
 
-            <p>
-                Colores:
-            </p>
+            <div
+                class="color-circle"
+                style="background:#111;"
+            ></div>
 
-            <div class="color-options">
+            <div
+                class="color-circle"
+                style="background:#666f88;"
+            ></div>
 
-                <span class="color black"></span>
-
-                <span class="color gray"></span>
-
-                <span class="color blue"></span>
-
-            </div>
+            <div
+                class="color-circle"
+                style="background:#b5bac9;"
+            ></div>
 
         </div>
 
         <!-- CANTIDAD -->
 
-        <div class="quantity-container">
+        <div class="quantity-selector">
 
-            <p>
-                Cantidad
-            </p>
+            <button onclick="decreaseQty()">
+                -
+            </button>
 
-            <div class="quantity-selector">
+            <span
+                id="quantity"
+                class="quantity-number"
+            >
+                1
+            </span>
 
-                <button onclick="decreaseQty()">
-                    -
-                </button>
-
-                <span id="quantity">
-                    1
-                </span>
-
-                <button onclick="increaseQty()">
-                    +
-                </button>
-
-            </div>
+            <button onclick="increaseQty()">
+                +
+            </button>
 
         </div>
 
@@ -96,14 +91,15 @@
             Agregar al carrito
 
         </button>
-            <a
-    href="/products"
-    class="back-products"
->
 
-    ← Volver a productos
+        <a
+            href="/products"
+            class="back-products"
+        >
 
-</a>
+            ← Volver a productos
+
+        </a>
 
     </div>
 
@@ -137,8 +133,6 @@
 
     }
 
-    let cartCount = 0
-
     async function addToCart(productId) {
 
         const cartId =
@@ -158,11 +152,7 @@
 
         }
 
-        cartCount += quantity
-
-        document.getElementById(
-            "cart-badge"
-        ).innerText = cartCount
+        loadCartCount()
 
         showToast()
 
