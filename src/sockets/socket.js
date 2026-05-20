@@ -10,6 +10,10 @@ export const configureSocket = (io) => {
 
         console.log("Cliente conectado")
 
+        /* ========================= */
+        /* REALTIME PRODUCTS */
+        /* ========================= */
+
         const result =
             await productManager.getProducts()
 
@@ -58,28 +62,25 @@ export const configureSocket = (io) => {
 
         )
 
-    })
-
-}
-
-export const configureSocket = (io) => {
-
-    io.on("connection", socket => {
-
-        console.log("Cliente conectado")
+        /* ========================= */
+        /* CHAT BOT */
+        /* ========================= */
 
         socket.on("message", message => {
 
             io.emit("message", {
+
                 user: "Usuario",
+
                 text: message
+
             })
 
             let botResponse =
-                "No entendí tu consulta"
+                "No entendí tu consulta 😅"
 
             if (
-                message.includes("hola")
+                message.toLowerCase().includes("hola")
             ) {
 
                 botResponse =
@@ -88,7 +89,7 @@ export const configureSocket = (io) => {
             }
 
             if (
-                message.includes("termo")
+                message.toLowerCase().includes("termo")
             ) {
 
                 botResponse =
@@ -97,8 +98,11 @@ export const configureSocket = (io) => {
             }
 
             io.emit("message", {
+
                 user: "Bot Boreal",
+
                 text: botResponse
+
             })
 
         })
@@ -106,4 +110,3 @@ export const configureSocket = (io) => {
     })
 
 }
-
