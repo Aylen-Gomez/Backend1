@@ -45,8 +45,6 @@
 
     <div class="container-fluid">
 
-        <!-- LOGO -->
-
         <a
             class="navbar-brand d-flex align-items-center"
             href="/"
@@ -60,8 +58,6 @@
 
         </a>
 
-        <!-- BOTON MOBILE -->
-
         <button
             class="navbar-toggler"
             type="button"
@@ -73,14 +69,10 @@
 
         </button>
 
-        <!-- CONTENIDO -->
-
         <div
             class="collapse navbar-collapse"
             id="navbarContent"
         >
-
-            <!-- MENU CENTRO -->
 
             <ul
                 class="
@@ -90,8 +82,6 @@
                     align-items-center
                 "
             >
-
-                <!-- CATEGORIAS -->
 
                 <li class="nav-item dropdown">
 
@@ -146,8 +136,6 @@
 
                 </li>
 
-                <!-- SOBRE NOSOTROS -->
-
                 <li class="nav-item">
 
                     <a
@@ -160,8 +148,6 @@
                     </a>
 
                 </li>
-
-                <!-- NOVEDADES -->
 
 {{#if user}}
 
@@ -186,45 +172,21 @@
 
             </ul>
 
-            <!-- ICONOS DERECHA -->
 
-            <div
-                class="
-                    d-flex
-                    align-items-center
-                    gap-4
-                "
-            >
-
-                <!-- CARRITO -->
-
-                {{!-- <a
-                    href="/carts/6a091f5ec5adea56c2610400"
-                    class="icon-link"
-                > --}}
-                <a
-    href="#"
-    class="icon-link"
-    onclick="openCart()"
->
+            <div class="d-flex align-items-center gap-4">
+                <a href="#" class="icon-link" onclick="openCart()">
 
                     <div class="cart-container">
 
                         <i class="bi bi-cart3"></i>
 
-                        <span class="cart-badge"
-                        id="cart-badge"
-                        >
-
+                        <span class="cart-badge" id="cart-badge">
                             0
-
                         </span>
 
                     </div>
 
                 </a>
-
-                <!-- USUARIO -->
 
 {{#if user}}
 
@@ -741,178 +703,3 @@
     }
 
 </script>
-
-{{!-- <div
-    class="cart-sidebar"
-    id="cartSidebar"
->
-
-    <div class="cart-sidebar-header">
-
-        <h2>
-            Tu carrito
-        </h2>
-
-        <button onclick="closeCart()">
-            ✕
-        </button>
-
-    </div>
-
-    <div
-        id="cartItems"
-        class="cart-sidebar-items"
-    >
-
-        <p>
-            Cargando carrito...
-        </p>
-
-    </div>
-
-    <div class="cart-sidebar-footer">
-
-        <button class="checkout-btn">
-            Finalizar compra
-        </button>
-
-    </div>
-
-</div>
-
-<div
-    class="cart-overlay"
-    id="cartOverlay"
-    onclick="closeCart()"
-></div>
-
-<script>
-
-    const cartId =
-        "6a091f5ec5adea56c2610400"
-
-    async function loadCartCount() {
-
-        try {
-
-            const response =
-                await fetch(
-                    `/api/carts/${cartId}`
-                )
-
-            const cart =
-                await response.json()
-
-            let total = 0
-
-            cart.products.forEach(product => {
-
-                total += product.quantity
-
-            })
-
-            document.getElementById(
-                "cart-badge"
-            ).innerText = total
-
-        } catch (error) {
-
-            console.log(error)
-
-        }
-
-    }
-
-    loadCartCount()
-
-</script>
-
-<script>
-
-    async function openCart() {
-
-        document.getElementById(
-            "cartSidebar"
-        ).classList.add("active")
-
-        document.getElementById(
-            "cartOverlay"
-        ).classList.add("active")
-
-        await loadCartItems()
-
-    }
-
-    function closeCart() {
-
-        document.getElementById(
-            "cartSidebar"
-        ).classList.remove("active")
-
-        document.getElementById(
-            "cartOverlay"
-        ).classList.remove("active")
-
-    }
-
-    async function loadCartItems() {
-
-        const cartId =
-            "6a091f5ec5adea56c2610400"
-
-        const response =
-            await fetch(`/api/carts/${cartId}`)
-
-        const cart =
-            await response.json()
-
-        const container =
-            document.getElementById(
-                "cartItems"
-            )
-
-        if (!cart.products.length) {
-
-            container.innerHTML = `
-                <p>
-                    El carrito está vacío
-                </p>
-            `
-
-            return
-
-        }
-
-        container.innerHTML =
-            cart.products.map(item => `
-
-                <div class="cart-item">
-
-                    <img
-                        src="${item.product.thumbnails[0]}"
-                    >
-
-                    <div>
-
-                        <h4>
-                            ${item.product.title}
-                        </h4>
-
-                        <p>
-                            $${item.product.price}
-                        </p>
-
-                        <span>
-                            Cantidad:
-                            ${item.quantity}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            `).join("")
-
-    }
-
-</script> --}}

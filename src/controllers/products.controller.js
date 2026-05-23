@@ -1,5 +1,4 @@
-import ProductsMongo
-from "../dao/mongo/ProductsMongo.js"
+import ProductsMongo from "../dao/mongo/ProductsMongo.js"
 
 const productManager =
     new ProductsMongo()

@@ -1,30 +1,15 @@
 :root {
-
-    /* ========================= */
-    /* BRAND COLORS */
-    /* ========================= */
-
     --color-primary: #666f88;
     --color-secondary: #788199;
     --color-tertiary: #8990a2;
     --color-light: #a3a8b7;
     --color-soft: #b5bac9;
     --color-logo: #34445c;
-
-    /* ========================= */
-    /* NEUTRAL COLORS */
-    /* ========================= */
-
     --color-white: #ffffff;
     --color-background: #f5f5f5;
     --color-text: #333333;
     --color-title: #444444;
     --color-border: #e5e7eb;
-
-    /* ========================= */
-    /* EFFECTS */
-    /* ========================= */
-
     --shadow-soft:
         0 4px 10px rgba(0,0,0,0.08);
 
@@ -38,9 +23,7 @@
 
 }
 
-/* ========================= */
 /* GENERAL */
-/* ========================= */
 
 * {
 
@@ -100,9 +83,7 @@ hr {
 
 }
 
-/* ========================= */
 /* NAVBAR */
-/* ========================= */
 
 .custom-navbar {
 
@@ -139,10 +120,6 @@ hr {
 
 }
 
-/* ========================= */
-/* NAV LINKS */
-/* ========================= */
-
 .nav-text {
 
     color:
@@ -164,10 +141,6 @@ hr {
         var(--color-primary) !important;
 
 }
-
-/* ========================= */
-/* DROPDOWN */
-/* ========================= */
 
 .dropdown-menu {
 
@@ -198,10 +171,6 @@ hr {
         var(--color-background);
 
 }
-
-/* ========================= */
-/* ICONS */
-/* ========================= */
 
 .icon-link {
 
@@ -242,10 +211,6 @@ hr {
     line-height: 1;
 
 }
-
-/* ========================= */
-/* CART */
-/* ========================= */
 
 .cart-container {
 
@@ -291,9 +256,7 @@ hr {
 
 }
 
-/* ========================= */
-/* PRODUCTS GRID */
-/* ========================= */
+/* PRODUCTS */
 
 .products-container {
 
@@ -311,9 +274,6 @@ hr {
 
 }
 
-/* ========================= */
-/* PRODUCT CARD */
-/* ========================= */
 
 .product-card {
 
@@ -332,10 +292,6 @@ hr {
     transform: translateY(-4px);
 
 }
-
-/* ========================= */
-/* PRODUCT IMAGE */
-/* ========================= */
 
 .product-image {
 
@@ -356,10 +312,6 @@ hr {
     transform: scale(1.08);
 
 }
-
-/* ========================= */
-/* PRODUCT TITLE */
-/* ========================= */
 
 .product-title {
 
@@ -386,10 +338,6 @@ hr {
 
 }
 
-/* ========================= */
-/* PRODUCT PRICE */
-/* ========================= */
-
 .product-price {
 
     font-size: 1.5rem;
@@ -403,10 +351,6 @@ hr {
 
 }
 
-/* ========================= */
-/* INSTALLMENTS */
-/* ========================= */
-
 .product-installments {
 
     font-size: 0.9rem;
@@ -417,10 +361,6 @@ hr {
     margin-bottom: 20px;
 
 }
-
-/* ========================= */
-/* BUTTONS */
-/* ========================= */
 
 button,
 .view-product-btn,
@@ -471,9 +411,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* PAGINATION */
-/* ========================= */
 
 .pagination {
 
@@ -514,9 +452,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* PROMO CAROUSEL */
-/* ========================= */
 
 .promo-carousel {
 
@@ -542,9 +478,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* HERO */
-/* ========================= */
 
 .hero-banner {
 
@@ -564,10 +498,6 @@ button:hover,
         var(--shadow-soft);
 
 }
-
-/* ========================= */
-/* FEATURED BANNER */
-/* ========================= */
 
 .featured-banner {
 
@@ -602,9 +532,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* PRODUCT DETAIL */
-/* ========================= */
 
 .product-detail-page,
 .product-detail-container {
@@ -712,10 +640,6 @@ button:hover,
 
 }
 
-/* ========================= */
-/* COLORS */
-/* ========================= */
-
 .product-colors,
 .detail-colors {
 
@@ -770,10 +694,6 @@ button:hover,
 
 }
 
-/* ========================= */
-/* QUANTITY */
-/* ========================= */
-
 .quantity-container {
 
     margin-bottom: 35px;
@@ -817,9 +737,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* BACK PRODUCTS */
-/* ========================= */
 
 .back-products {
 
@@ -845,9 +763,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* TOAST */
-/* ========================= */
 
 .custom-toast {
 
@@ -894,9 +810,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* SIDEBAR CART */
-/* ========================= */
 
 .cart-sidebar {
 
@@ -1092,9 +1006,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* FOOTER */
-/* ========================= */
 
 .custom-footer {
 
@@ -1212,9 +1124,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* RESPONSIVE */
-/* ========================= */
 
 @media (max-width: 768px) {
 
@@ -1278,9 +1188,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* CHAT BOT */
-/* ========================= */
 
 .chat-bot {
 
@@ -1329,8 +1237,6 @@ button:hover,
 
 }
 
-/* TOOLTIP */
-
 .chat-tooltip {
 
     position: absolute;
@@ -1370,9 +1276,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* CHAT WINDOW */
-/* ========================= */
 
 .chat-window {
 
@@ -1478,8 +1382,6 @@ button:hover,
 
 }
 
-/* INPUT */
-
 .chat-input {
 
     display: flex;
@@ -1508,9 +1410,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* LOGIN MODAL */
-/* ========================= */
 
 .boreal-modal {
 
@@ -1574,9 +1474,7 @@ button:hover,
 
 }
 
-/* ========================= */
 /* REALTIME PRODUCTS */
-/* ========================= */
 
 .realtime-container {
 

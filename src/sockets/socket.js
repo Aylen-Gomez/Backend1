@@ -10,10 +10,6 @@ export const configureSocket = (io) => {
 
         console.log("Cliente conectado")
 
-        /* ========================= */
-        /* REALTIME PRODUCTS */
-        /* ========================= */
-
         const result =
             await productManager.getProducts()
 
@@ -66,10 +62,6 @@ export const configureSocket = (io) => {
             }
 
         )
-
-        /* ========================= */
-        /* CHAT BOT */
-        /* ========================= */
 
         socket.on("message", message => {
 
