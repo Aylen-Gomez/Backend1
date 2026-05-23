@@ -1,47 +1,137 @@
 const socket = io()
 
-const form = document.getElementById("productForm")
+const form =
+    document.getElementById("productForm")
 
 const productsContainer =
     document.getElementById("productsContainer")
 
-form.addEventListener("submit", event => {
+form.addEventListener(
+    "submit",
+    async event => {
 
-    event.preventDefault()
+        event.preventDefault()
 
-    const formData = new FormData(form)
+        const formData =
+            new FormData(form)
 
-    const product = {
-        title: formData.get("title"),
-        price: Number(formData.get("price"))
+        const file =
+            document.getElementById(
+                "thumbnailInput"
+            ).files[0]
+
+        let imageBase64 = ""
+
+        if (file) {
+
+            imageBase64 =
+                await toBase64(file)
+
+        }
+
+        const product = {
+
+            title:
+                formData.get("title"),
+
+            price:
+                Number(
+                    formData.get("price")
+                ),
+
+            category:
+                formData.get("category"),
+
+            stock:
+                Number(
+                    formData.get("stock")
+                ),
+
+            description:
+                formData.get("description"),
+
+            thumbnails: [
+                imageBase64
+            ]
+
+        }
+
+        socket.emit(
+            "newProduct",
+            product
+        )
+
+        form.reset()
+
     }
 
-    socket.emit("newProduct", product)
+)
 
-    form.reset()
+function toBase64(file) {
 
-})
+    return new Promise(
+        (resolve, reject) => {
 
-socket.on("updateProducts", products => {
+            const reader =
+                new FileReader()
 
-    productsContainer.innerHTML = ""
+            reader.readAsDataURL(file)
 
-    products.forEach(product => {
+            reader.onload =
+                () => resolve(reader.result)
 
-        productsContainer.innerHTML += `
-        
-            <div>
+            reader.onerror =
+                error => reject(error)
 
-                <h3>${product.title}</h3>
+        }
+    )
 
-                <p>$${product.price}</p>
+}
 
-            </div>
+socket.on(
+    "updateProducts",
+    products => {
 
-            <hr>
-        
-        `
+        productsContainer.innerHTML = ""
 
-    })
+        products.forEach(product => {
 
-})
+            productsContainer.innerHTML += `
+
+                <div class="product-card">
+
+                    <img
+                        src="${
+                            product.thumbnails?.[0]
+                            || "/images/default.png"
+                        }"
+                        class="product-image"
+                    >
+
+                    <h3 class="product-title">
+
+                        ${product.title}
+
+                    </h3>
+
+                    <p class="product-price">
+
+                        $${product.price}
+
+                    </p>
+
+                    <p class="product-installments">
+
+                        ${product.description || ""}
+
+                    </p>
+
+                </div>
+
+            `
+
+        })
+
+    }
+
+)

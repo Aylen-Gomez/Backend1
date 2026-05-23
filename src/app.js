@@ -1,46 +1,234 @@
+// import dotenv from "dotenv"
+// dotenv.config()
+
+// import express from "express"
+// import { engine } from "express-handlebars"
+// import { createServer } from "http"
+// import { Server } from "socket.io"
+// import path from "path"
+// import { fileURLToPath } from "url"
+
+// import productsRouter from "./routes/products.router.js"
+// import cartsRouter from "./routes/carts.router.js"
+// import viewsRouter from "./routes/views.router.js"
+// // import ProductManager from "./dao/filesystem/ProductManager.js"
+// import ProductsMongo from "./dao/mongo/ProductsMongo.js"
+// import connectDB from "./config/db.js"
+// import User from "./models/User.js"
+// import bcrypt from "bcrypt"
+// import errorHandler from "./middlewares/errorHandler.js"
+// import { configureSocket } from "./sockets/socket.js"
+// import session from "express-session"
+// import sessionsRouter from "./routes/sessions.router.js"
+
+// const app = express()
+// connectDB()
+
+// const httpServer = createServer(app)
+
+// const io = new Server(httpServer)
+// // const productManager = new ProductManager()
+// const productManager = new ProductsMongo()
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
+
+
+// app.use(express.json())
+// app.use(express.urlencoded({ extended: true }))
+
+// app.use(express.static(path.join(__dirname, "public")))
+
+// const hbs = engine({
+
+//     partialsDir:
+//         path.join(__dirname, "views/partials"),
+
+//     helpers: {
+
+//         eq: function (a, b) {
+
+//             return a === b
+
+//         }
+
+//     }
+
+// })
+
+// const createAdmin = async () => {
+
+//     const adminExists =
+//         await User.findOne({
+
+//             email:
+//                 "admin@boreal.com"
+
+//         })
+
+//     if (!adminExists) {
+
+//         await User.create({
+
+//             first_name: "Admin",
+
+//             email:
+//                 "admin@boreal.com",
+
+//             password:
+//                 bcrypt.hashSync(
+//                     "1234",
+//                     10
+//                 ),
+
+//             role: "admin"
+
+//         })
+
+//         console.log(
+//             "Admin creado"
+//         )
+
+//     }
+
+// }
+
+// createAdmin()
+
+// app.use("/api/sessions", sessionsRouter)
+// app.engine("handlebars", hbs)
+// app.set("view engine", "handlebars")
+// app.set("views", path.join(__dirname, "views"))
+
+// app.use("/api/products", productsRouter)
+// app.use("/api/carts", cartsRouter)
+// app.use("/", viewsRouter)
+// app.use(errorHandler)
+
+// const PORT = 8080
+
+// httpServer.listen(PORT, () => {
+//     console.log(`Servidor funcionando en puerto ${PORT}`)
+// })
+
 import dotenv from "dotenv"
 dotenv.config()
 
 import express from "express"
+import session from "express-session"
+
 import { engine } from "express-handlebars"
+
 import { createServer } from "http"
 import { Server } from "socket.io"
+
 import path from "path"
 import { fileURLToPath } from "url"
+
+import bcrypt from "bcrypt"
+
+import connectDB from "./config/db.js"
 
 import productsRouter from "./routes/products.router.js"
 import cartsRouter from "./routes/carts.router.js"
 import viewsRouter from "./routes/views.router.js"
-// import ProductManager from "./dao/filesystem/ProductManager.js"
+import sessionsRouter from "./routes/sessions.router.js"
+
 import ProductsMongo from "./dao/mongo/ProductsMongo.js"
-import connectDB from "./config/db.js"
+
+import User from "./models/User.js"
+
 import errorHandler from "./middlewares/errorHandler.js"
-import { configureSocket } from "./sockets/socket.js"
+
+import { configureSocket }
+from "./sockets/socket.js"
 
 const app = express()
+
 connectDB()
 
-const httpServer = createServer(app)
+/* ========================= */
+/* SERVER + SOCKET */
+/* ========================= */
 
-const io = new Server(httpServer)
-// const productManager = new ProductManager()
-const productManager = new ProductsMongo()
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const httpServer =
+    createServer(app)
+
+const io =
+    new Server(httpServer)
+
+configureSocket(io)
+
+/* ========================= */
+/* PATHS */
+/* ========================= */
+
+const __filename =
+    fileURLToPath(import.meta.url)
+
+const __dirname =
+    path.dirname(__filename)
+
+/* ========================= */
+/* MIDDLEWARES */
+/* ========================= */
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
 
-app.use(express.static(path.join(__dirname, "public")))
+app.use(express.urlencoded({
+    extended: true
+}))
+
+/* ========================= */
+/* SESSIONS */
+/* ========================= */
+
+app.use(session({
+
+    secret: "borealSecret",
+
+    resave: false,
+
+    saveUninitialized: false
+
+}))
+
+app.use((req, res, next) => {
+
+    res.locals.user =
+        req.session.user || null 
+
+    next()
+
+})
+
+/* ========================= */
+/* STATIC FILES */
+/* ========================= */
+
+app.use(
+    express.static(
+        path.join(
+            __dirname,
+            "public"
+        )
+    )
+)
+
+/* ========================= */
+/* HANDLEBARS */
+/* ========================= */
 
 const hbs = engine({
 
     partialsDir:
-        path.join(__dirname, "views/partials"),
+        path.join(
+            __dirname,
+            "views/partials"
+        ),
 
     helpers: {
 
-        eq: function (a, b) {
+        eq: function(a, b) {
 
             return a === b
 
@@ -50,17 +238,104 @@ const hbs = engine({
 
 })
 
-app.engine("handlebars", hbs)
-app.set("view engine", "handlebars")
-app.set("views", path.join(__dirname, "views"))
+app.engine(
+    "handlebars",
+    hbs
+)
 
-app.use("/api/products", productsRouter)
-app.use("/api/carts", cartsRouter)
-app.use("/", viewsRouter)
+app.set(
+    "view engine",
+    "handlebars"
+)
+
+app.set(
+    "views",
+    path.join(__dirname, "views")
+)
+
+/* ========================= */
+/* ADMIN DEFAULT */
+/* ========================= */
+
+const createAdmin = async () => {
+
+    const adminExists =
+        await User.findOne({
+
+            email:
+                "admin@boreal.com"
+
+        })
+
+    if (!adminExists) {
+
+        await User.create({
+
+            first_name: "Admin",
+
+            email:
+                "admin@boreal.com",
+
+            password:
+                bcrypt.hashSync(
+                    "1234",
+                    10
+                ),
+
+            role: "admin"
+
+        })
+
+        console.log(
+            "Admin creado"
+        )
+
+    }
+
+}
+
+createAdmin()
+
+/* ========================= */
+/* ROUTES */
+/* ========================= */
+
+app.use(
+    "/api/sessions",
+    sessionsRouter
+)
+
+app.use(
+    "/api/products",
+    productsRouter
+)
+
+app.use(
+    "/api/carts",
+    cartsRouter
+)
+
+app.use(
+    "/",
+    viewsRouter
+)
+
+/* ========================= */
+/* ERROR HANDLER */
+/* ========================= */
+
 app.use(errorHandler)
+
+/* ========================= */
+/* SERVER */
+/* ========================= */
 
 const PORT = 8080
 
 httpServer.listen(PORT, () => {
-    console.log(`Servidor funcionando en puerto ${PORT}`)
+
+    console.log(
+        `Servidor funcionando en puerto ${PORT}`
+    )
+
 })

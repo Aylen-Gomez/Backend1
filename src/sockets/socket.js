@@ -29,18 +29,23 @@ export const configureSocket = (io) => {
                 const completeProduct = {
 
                     description:
-                        "Sin descripcion",
+                        product.description
+                        || "Sin descripcion",
 
                     code:
                         `CODE${Date.now()}`,
 
                     status: true,
 
-                    stock: 10,
+                    stock:
+                        product.stock || 0,
 
-                    category: "General",
+                    category:
+                        product.category
+                        || "General",
 
-                    thumbnails: [],
+                    thumbnails:
+                        product.thumbnails || [],
 
                     ...product
 

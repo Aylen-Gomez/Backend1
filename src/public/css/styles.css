@@ -1507,3 +1507,224 @@ button:hover,
     outline: none;
 
 }
+
+/* ========================= */
+/* LOGIN MODAL */
+/* ========================= */
+
+.boreal-modal {
+
+    border-radius: 20px;
+
+    border: none;
+
+    padding: 10px;
+
+}
+
+.boreal-modal .modal-title {
+
+    font-weight: 700;
+
+    color: var(--color-logo);
+
+}
+
+.boreal-modal .form-control {
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+}
+
+.boreal-modal .form-control:focus {
+
+    box-shadow: none;
+
+    border-color: var(--color-primary);
+
+}
+
+.login-btn {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    background-color: var(--color-logo);
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+
+}
+
+.login-btn:hover {
+
+    background-color: var(--color-primary);
+
+}
+
+/* ========================= */
+/* REALTIME PRODUCTS */
+/* ========================= */
+
+.realtime-container {
+
+    max-width: 1200px;
+
+    margin: 50px auto;
+
+    padding: 0 20px;
+
+}
+
+.realtime-header {
+
+    text-align: center;
+
+    margin-bottom: 40px;
+
+}
+
+.realtime-header h1 {
+
+    color: var(--color-logo);
+
+    font-size: 2.5rem;
+
+    margin-bottom: 10px;
+
+}
+
+.realtime-header p {
+
+    color: #666;
+
+    font-size: 1rem;
+
+}
+
+.realtime-form {
+
+    background: var(--color-white);
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-soft);
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 50px;
+
+}
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.form-group label {
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+
+    color: var(--color-logo);
+
+}
+
+.form-group input,
+.form-group textarea {
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    border: 1px solid #ddd;
+
+    font-family: inherit;
+
+    outline: none;
+
+    transition: 0.2s ease;
+
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+
+    border-color: var(--color-primary);
+
+}
+
+.form-group textarea {
+
+    resize: none;
+
+    min-height: 120px;
+
+}
+
+.full-width {
+
+    grid-column: 1 / -1;
+
+}
+
+.realtime-btn {
+
+    grid-column: 1 / -1;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    background: var(--color-logo);
+
+    color: white;
+
+    border: none;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+
+}
+
+.realtime-btn:hover {
+
+    background: var(--color-primary);
+
+}
+
+.realtime-products {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+
+}

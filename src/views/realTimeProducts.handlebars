@@ -1,32 +1,132 @@
-<h1>Productos en tiempo real</h1>
+{{> navbar}}
+<div class="realtime-container">
 
-<form id="productForm">
+    <div class="realtime-header">
 
-    <input
-        type="text"
-        name="title"
-        placeholder="Titulo"
-        required
+        <h1>
+            Panel de productos
+        </h1>
+
+        <p>
+            Gestión en tiempo real de productos Boreal
+        </p>
+
+    </div>
+
+    <form
+        id="productForm"
+        class="realtime-form"
     >
 
-    <input
-        type="number"
-        name="price"
-        placeholder="Precio"
-        required
+        <div class="form-group">
+
+            <label>
+                Nombre
+            </label>
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Botella Boreal Active"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Precio
+            </label>
+
+            <input
+                type="number"
+                name="price"
+                placeholder="$45000"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Categoría
+            </label>
+
+            <input
+                type="text"
+                name="category"
+                placeholder="Botellas"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Stock
+            </label>
+
+            <input
+                type="number"
+                name="stock"
+                placeholder="20"
+            >
+
+        </div>
+
+        <div class="form-group full-width">
+
+            <label>
+                Descripción
+            </label>
+
+            <textarea
+                name="description"
+                placeholder="Descripción del producto..."
+            ></textarea>
+
+        </div>
+
+        <div class="form-group full-width">
+
+            <label>
+                Imagen URL
+            </label>
+
+            <input
+    type="file"
+    name="thumbnail"
+    id="thumbnailInput"
+    accept="image/*"
+>
+
+        </div>
+
+        <button
+            type="submit"
+            class="realtime-btn"
+        >
+
+            Agregar producto
+
+        </button>
+
+    </form>
+
+    <hr>
+
+    <div
+        id="productsContainer"
+        class="realtime-products"
     >
 
-    <button type="submit">
-        Agregar producto
-    </button>
-
-</form>
-
-<hr>
-
-<div id="productsContainer">
+    </div>
 
 </div>
+
+{{> footer}}
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realtime.js"></script>

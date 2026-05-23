@@ -2,6 +2,7 @@ import { Router } from "express"
 
 import ProductsMongo from "../dao/mongo/ProductsMongo.js"
 import CartsMongo from "../dao/mongo/CartsMongo.js"
+import { isAdmin } from "../middlewares/auth.js"
 
 const router = Router()
 
@@ -106,9 +107,21 @@ router.get("/carts/:cid", async (req, res) => {
 
 })
 
-router.get("/realtimeproducts", (req, res) => {
+router.get(
+    "/realtimeproducts",
+    isAdmin,
+    (req, res) => {
 
-    res.render("realTimeProducts")
+        res.render(
+            "realTimeProducts"
+        )
+
+    }
+)
+
+router.get("/register", (req, res) => {
+
+    res.render("register")
 
 })
 

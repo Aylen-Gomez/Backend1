@@ -163,18 +163,26 @@
 
                 <!-- NOVEDADES -->
 
-                <li class="nav-item">
+{{#if user}}
 
-                    <a
-                        class="nav-link nav-text"
-                        href="/realtimeproducts"
-                    >
+    {{#if (eq user.role "admin")}}
 
-                        Novedades
+        <li class="nav-item">
 
-                    </a>
+            <a
+                class="nav-link nav-text"
+                href="/realtimeproducts"
+            >
 
-                </li>
+                Agregar productos
+
+            </a>
+
+        </li>
+
+    {{/if}}
+
+{{/if}}
 
             </ul>
 
@@ -218,14 +226,80 @@
 
                 <!-- USUARIO -->
 
+{{#if user}}
+
+    <div class="dropdown">
+
+        <a
+            href="#"
+            class="icon-link"
+            data-bs-toggle="dropdown"
+        >
+
+            <i class="bi bi-person-circle"></i>
+
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+
+            <li class="dropdown-item-text">
+
+                Hola {{user.first_name}}
+
+            </li>
+
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+
+            {{#if (eq user.role "admin")}}
+
+                <li>
+
+                    <a
+                        class="dropdown-item"
+                        href="/realtimeproducts"
+                    >
+
+                        Panel admin
+
+                    </a>
+
+                </li>
+
+            {{/if}}
+
+            <li>
+
                 <a
-                    href="#"
-                    class="icon-link"
+                    class="dropdown-item"
+                    href="/api/sessions/logout"
                 >
 
-                    <i class="bi bi-person-circle"></i>
+                    Cerrar sesión
 
                 </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+{{else}}
+
+    <a
+        href="#"
+        class="icon-link"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+    >
+
+        <i class="bi bi-person-circle"></i>
+
+    </a>
+
+{{/if}}
 
             </div>
 
@@ -288,6 +362,233 @@
     id="cartOverlay"
     onclick="closeCart()"
 ></div>
+
+<div
+    class="modal fade"
+    id="loginModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content boreal-modal">
+
+            <div class="modal-header border-0">
+
+                <h5 class="modal-title">
+
+                    Iniciar sesión
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form
+                    action="/api/sessions/login"
+                    method="POST"
+                >
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Contraseña
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                    >
+
+                        Ingresar
+
+                    </button>
+
+                </form>
+
+                <hr>
+
+                <p class="text-center mb-0">
+
+        ¿No tenés cuenta?
+
+        <a
+            href="#"
+            data-bs-toggle="modal"
+            data-bs-target="#registerModal"
+            data-bs-dismiss="modal"
+        >
+
+            Registrarse
+
+        </a>
+
+    </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    class="modal fade"
+    id="registerModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content boreal-modal">
+
+            <div class="modal-header border-0">
+
+                <h5 class="modal-title">
+
+                    Crear cuenta
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form
+                    action="/api/sessions/register"
+                    method="POST"
+                >
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Nombre
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="first_name"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Contraseña
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                    >
+
+                        Registrarme
+
+                    </button>
+
+                </form>
+
+                <hr>
+
+                <p class="text-center mb-0">
+
+                    ¿Ya tenés cuenta?
+
+                    <a
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#loginModal"
+                        data-bs-dismiss="modal"
+                    >
+
+                        Iniciar sesión
+
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
