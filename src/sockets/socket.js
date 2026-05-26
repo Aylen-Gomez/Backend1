@@ -1,5 +1,4 @@
-import ProductsMongo
-from "../dao/mongo/ProductsMongo.js"
+import ProductsMongo from "../dao/mongo/ProductsMongo.js"
 
 const productManager =
     new ProductsMongo()
@@ -11,56 +10,15 @@ export const configureSocket = (io) => {
         console.log("Cliente conectado")
 
         const result =
-            await productManager.getProducts()
+            await productManager.getProducts({
+
+                limit: 100
+
+            })
 
         socket.emit(
             "updateProducts",
             result.payload
-        )
-
-        socket.on(
-            "newProduct",
-            async product => {
-
-                const completeProduct = {
-
-                    description:
-                        product.description
-                        || "Sin descripcion",
-
-                    code:
-                        `CODE${Date.now()}`,
-
-                    status: true,
-
-                    stock:
-                        product.stock || 0,
-
-                    category:
-                        product.category
-                        || "General",
-
-                    thumbnails:
-                        product.thumbnails || [],
-
-                    ...product
-
-                }
-
-                await productManager.addProduct(
-                    completeProduct
-                )
-
-                const updatedProducts =
-                    await productManager.getProducts()
-
-                io.emit(
-                    "updateProducts",
-                    updatedProducts.payload
-                )
-
-            }
-
         )
 
         socket.on("message", message => {
@@ -77,7 +35,9 @@ export const configureSocket = (io) => {
                 "No entendí tu consulta 😅"
 
             if (
-                message.toLowerCase().includes("hola")
+                message
+                    .toLowerCase()
+                    .includes("hola")
             ) {
 
                 botResponse =
@@ -86,7 +46,9 @@ export const configureSocket = (io) => {
             }
 
             if (
-                message.toLowerCase().includes("termo")
+                message
+                    .toLowerCase()
+                    .includes("termo")
             ) {
 
                 botResponse =

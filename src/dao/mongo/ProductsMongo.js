@@ -21,7 +21,10 @@ async getProducts({
 
         page,
         limit,
-        lean: true
+        lean: true,
+        sort: {
+        createdAt: -1
+        }
 
     }
 
