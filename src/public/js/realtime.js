@@ -23,24 +23,32 @@ window.addEventListener(
                 const formData =
                     new FormData(form)
 
-                const response =
-                    await fetch(
-                        "/api/products/realtime",
-                        {
+                try {
 
-                            method: "POST",
+                    const response =
+                        await fetch(
+                            "/api/products/realtime",
+                            {
 
-                            body: formData
+                                method: "POST",
 
-                        }
-                    )
+                                body: formData
 
-                const result =
-                    await response.json()
+                            }
+                        )
 
-                console.log(result)
+                    const result =
+                        await response.json()
 
-                form.reset()
+                    console.log(result)
+
+                    form.reset()
+
+                } catch (error) {
+
+                    console.log(error)
+
+                }
 
             }
         )
@@ -80,7 +88,6 @@ window.addEventListener(
                             <p class="product-installments">
 
                                 ${product.description || ""}
-
                             </p>
 
                         </div>

@@ -1,17 +1,20 @@
 import { Router } from "express"
 
 import {
-
     getProducts,
     getProductById,
     createProduct,
     updateProduct,
     deleteProduct
-
 } from "../controllers/products.controller.js"
+
 import uploader from "../middlewares/uploader.js"
+import ProductsMongo from "../dao/mongo/ProductsMongo.js"
 
 const router = Router()
+
+const productManager =
+    new ProductsMongo()
 
 router.get(
     "/",
@@ -28,57 +31,83 @@ router.post(
     uploader.single("thumbnail"),
     async (req, res) => {
 
-        const io =
-            req.app.get("io")
+        try {
+            console.log("=== PETICION RECIBIDA ===")
 
-        const product = {
+            console.log("BODY:")
+            console.log(req.body)
 
-            title:
-                req.body.title,
+            console.log("FILE:")
+            console.log(req.file)
 
-            description:
-                req.body.description,
+            const io =
+                req.app.get("io")
 
-            code:
-                `CODE${Date.now()}`,
+            const product = {
 
-            price:
-                Number(req.body.price),
+                title:
+                    req.body.title,
 
-            status: true,
+                description:
+                    req.body.description,
 
-            stock:
-                Number(req.body.stock),
+                code:
+                    `CODE${Date.now()}`,
 
-            category:
-                req.body.category,
+                price:
+                    Number(req.body.price),
 
-            thumbnails: [
+                status: true,
 
-                `/images/products/${req.file.filename}`
+                stock:
+                    Number(req.body.stock),
 
-            ]
+                category:
+                    req.body.category,
 
-        }
+                thumbnails:
+                    req.file
+                        ? [
+                            `/images/products/${req.file.filename}`
+                        ]
+                        : []
 
-        const newProduct =
-            await productManager.addProduct(
-                product
+            }
+            console.log("PRODUCTO A GUARDAR:")
+            console.log(product)
+            const newProduct =
+                await productManager.addProduct(
+                    product
+                )
+
+            const updatedProducts =
+                await productManager.getProducts({
+                    limit: 100
+                })
+
+            io.emit(
+                "updateProducts",
+                updatedProducts.payload
             )
 
-        const updatedProducts =
-            await productManager.getProducts({
+            res.status(201).json(
+                newProduct
+            )
 
-                limit: 100
+        } catch (error) {
+
+            console.log(error)
+
+            res.status(500).json({
+
+                status: "error",
+
+                message:
+                    "Error interno del servidor"
 
             })
 
-        io.emit(
-            "updateProducts",
-            updatedProducts.payload
-        )
-
-        res.json(newProduct)
+        }
 
     }
 )
